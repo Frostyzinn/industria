@@ -1,22 +1,28 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SetorController;
-use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\EquipamentoController;
+use App\Http\Controllers\FuncionarioController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/setores',[SetorController::class, 'index'])->name('setores.index');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/setores/criar',[SetorController::class, 'criar'])->name('setores.criar');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::patch('/setores/{id}/status',[SetorController::class,'ativarDesativar'])->name('setores.ativar-desativar');
+    Route::resource('setores',SetorController::class);
+    Route::resource('equipamentos',EquipamentoController::class);
+    Route::resource('funcionarios',FuncionarioController::class);
+});
 
-Route::resource('setores',SetorController::class);
 
-Route::resource('funcionarios',FuncionarioController::class);
-
-Route::patch('/setores/{id}/status',[SetorController::class,'ativarDesativar'])->name('setores.ativar-desativar');
-
-Route::resource('equipamentos', EquipamentoController::class);
+require __DIR__.'/auth.php';
