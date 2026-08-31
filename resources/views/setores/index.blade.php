@@ -1,7 +1,9 @@
 @extends('layouts.app')
 @section('title','Lista de setores')
 @section('content') 
-<h1>Lista de setores</h1>
+<div class="text-center">
+    <h1>Lista de setores para {{ Auth::user()->name}}</h1>
+</div>
 <a class="btn btn-primary" href="{{ route('setores.create') }}" role="button">Novo</a>
 <table class="table">
     <thead class="table-info">
@@ -12,7 +14,7 @@
     </thead>
     <tbody>
         @foreach($setores as $setor)
-        <tr class="table-info">
+        <tr >
             <td>{{ $setor->id}}</td>
             <td>{{ $setor->nome}}</td>
             <td>{{ $setor->ativo ? 'Desativar' : 'Ativar' }}</td>
