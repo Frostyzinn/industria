@@ -9,9 +9,6 @@ use Illuminate\Http\Request;
 
 class OrdemProducaoController extends Controller
 {
-    /**
-     * Lista as ordens de produção.
-     */
     public function index()
     {
         $ordens = OrdemProducao::with(['setor', 'responsavel'])
@@ -21,9 +18,6 @@ class OrdemProducaoController extends Controller
         return view('ordens-producao.index', compact('ordens'));
     }
 
-    /**
-     * Exibe o formulário para criar uma nova ordem.
-     */
     public function create()
     {
         $setores = Setor::orderBy('nome')->get();
@@ -34,10 +28,6 @@ class OrdemProducaoController extends Controller
             'funcionarios'
         ));
     }
-
-    /**
-     * Salva uma nova ordem de produção.
-     */
     public function store(Request $request)
     {
         $dados = $request->validate([
@@ -62,9 +52,6 @@ class OrdemProducaoController extends Controller
             ->with('success', 'Ordem de produção criada com sucesso!');
     }
 
-    /**
-     * Exibe uma ordem de produção.
-     */
     public function show(string $id)
     {
         $ordem = OrdemProducao::with(['setor', 'responsavel'])
@@ -73,9 +60,6 @@ class OrdemProducaoController extends Controller
         return view('ordens-producao.show', compact('ordem'));
     }
 
-    /**
-     * Exibe o formulário de edição.
-     */
    public function edit(string $id)
     {
         $ordens_producao = OrdemProducao::findOrFail($id);
@@ -91,9 +75,6 @@ class OrdemProducaoController extends Controller
     }
 
 
-    /**
-     * Atualiza uma ordem de produção.
-     */
     public function update(Request $request, string $id)
     {
         $ordem = OrdemProducao::findOrFail($id);
@@ -120,9 +101,6 @@ class OrdemProducaoController extends Controller
             ->with('success', 'Ordem de produção atualizada com sucesso!');
     }
 
-    /**
-     * Exclui uma ordem de produção.
-     */
     public function destroy(string $id)
     {
         $ordem = OrdemProducao::findOrFail($id);

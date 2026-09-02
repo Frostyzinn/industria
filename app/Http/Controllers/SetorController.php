@@ -10,7 +10,7 @@ class SetorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $setores = Setor::all();
         return view('setores.index',compact('setores'));
