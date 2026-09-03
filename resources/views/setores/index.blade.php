@@ -1,14 +1,20 @@
 @extends('layouts.app') 
 @section('title','Lista de setores') 
 @section('content') 
-
 <div class="text-center"> 
     <h1>Lista de setores para {{ Auth::user()->name}}</h1> 
-    <!-- Corrigido: O formulário deve envolver os campos de busca para funcionar -->
-    <form action="{{route('setores.index')}}" method="post">
+    <form action="{{route('setores.index')}}" method="get">
         @csrf 
         <div class="d-flex"> 
+            <label for="">id</label>
             <input type="text" name="id" id="id"> 
+            <label for="">nome</label>
+            <input type="text" name="nome" id="nome">
+            <label for="">status</label>
+            <select name="status" id="status">
+                <option value="1">Ativado</option>
+                <option value="0">Desativo</option>
+            </select>
             <button class="btn btn-success" type="submit">Buscar</button> 
         </div> 
     </form>
@@ -28,7 +34,7 @@
         <tr> 
             <td>{{ $setor->id}}</td> 
             <td>{{ $setor->nome}}</td> 
-            <td>{{ $setor->ativo ? 'Desativar' : 'Ativar' }}</td> 
+            <td>{{ $setor->ativo ? 'Ativado' : 'Desativado' }}</td> 
             <td> 
                 <a class="btn btn-primary" href="{{ route('setores.show',$setor->id) }}" role="button">Visualizar</a> 
                 <a class="btn btn-primary" href="{{ route('setores.edit',$setor->id) }}" role="button">Editar</a> 
