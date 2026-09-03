@@ -8,14 +8,44 @@ use Illuminate\Http\Request;
 
 class FuncionarioController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $funcionarios = Funcionario::all();
+        $funcionarios = Funcionario::where('id', '>', 0);
 
-        return view('funcionarios.index', compact('funcionarios'));
+        if ($request->filled('nome')) {
+            $funcionarios = $funcionarios->where('nome','like','%' . $request->nome . '%');
+        }
+
+        if ($request->filled('setor_id')) {
+            $funcionarios = $funcionarios->where(
+                'setor_id',
+                $request->setor_id
+            );
+        }
+
+        if ($request->filled('matricula')) {
+            $funcionarios = $funcionarios->where(
+                'matricula',
+                'like',
+                '%' . $request->matricula . '%'
+            );
+        }
+
+        $funcionarios = $funcionarios->get();
+
+        $setores = Setor::all();
+
+        $cargos = Funcionario::select('cargo')
+            ->whereNotNull('cargo')
+            ->distinct()
+            ->pluck('cargo');
+
+        return view(
+            'funcionarios.index',
+            compact('funcionarios', 'setores', 'cargos')
+        );
     }
 
-    
     public function create()
     {
         $setores = Setor::all();

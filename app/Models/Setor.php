@@ -9,10 +9,7 @@ class Setor extends Model
 {
     protected $table = 'setores';
 
-    protected $fillable = [
-        'nome',
-        'criador_por_usuario_id'
-    ];
+    protected $fillable = ['nome','criador_por_usuario_id'];
 
     public $timestamps = false;
 

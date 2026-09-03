@@ -92,6 +92,28 @@
             background: #f8d7da;
             color: #721c24;
         }
+
+        /* Estilo do formulário */
+        .filtros {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f1f1f1;
+            border-radius: 5px;
+        }
+
+        .filtros label {
+            margin-right: 5px;
+            font-weight: bold;
+        }
+
+        .filtros input,
+        .filtros select {
+            padding: 8px;
+            margin-right: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
     </style>
 </head>
 
@@ -111,6 +133,87 @@
        class="btn btn-primary">
         + Novo equipamento
     </a>
+
+    {{-- FORMULÁRIO DE FILTROS --}}
+    <form action="{{ route('equipamentos.index') }}"
+          method="GET"
+          class="filtros">
+
+        {{-- NOME --}}
+        <label for="nome">Nome:</label>
+
+        <input
+            type="text"
+            name="nome"
+            id="nome"
+            value="{{ request('nome') }}"
+        >
+
+
+        {{-- STATUS --}}
+        <label for="status">Status:</label>
+
+        <select name="status" id="status">
+
+            <option value="">Todos</option>
+
+            <option value="ativo"
+                {{ request('status') == 'ativo' ? 'selected' : '' }}>
+                Ativo
+            </option>
+
+            <option value="manutencao"
+                {{ request('status') == 'manutencao' ? 'selected' : '' }}>
+                Manutenção
+            </option>
+
+            <option value="inativo"
+                {{ request('status') == 'inativo' ? 'selected' : '' }}>
+                Inativo
+            </option>
+
+        </select>
+
+
+        {{-- SETOR --}}
+        <label for="setor_id">Setor:</label>
+
+        <select name="setor_id" id="setor_id">
+
+            <option value="">Todos</option>
+
+            @foreach($setores as $setor)
+
+                <option
+                    value="{{ $setor->id }}"
+                    {{ request('setor_id') == $setor->id ? 'selected' : '' }}
+                >
+                    {{ $setor->nome }}
+                </option>
+
+            @endforeach
+
+        </select>
+
+
+        {{-- PATRIMÔNIO --}}
+        <label for="patrimonio">Patrimônio:</label>
+
+        <input
+            type="text"
+            name="patrimonio"
+            id="patrimonio"
+            value="{{ request('patrimonio') }}"
+        >
+
+
+        {{-- BOTÃO --}}
+        <button type="submit" class="btn btn-primary">
+            Filtrar
+        </button>
+
+    </form>
+
 
     <table>
 
@@ -157,19 +260,16 @@
 
                     <div class="acoes">
 
-                        {{-- VISUALIZAR --}}
                         <a href="{{ route('equipamentos.show', $equipamento) }}"
                            class="btn btn-primary">
                             Visualizar
                         </a>
 
-                        {{-- EDITAR --}}
                         <a href="{{ route('equipamentos.edit', $equipamento) }}"
                            class="btn btn-warning">
                             Editar
                         </a>
 
-                        {{-- EXCLUIR --}}
                         <form action="{{ route('equipamentos.destroy', $equipamento) }}"
                               method="POST"
                               onsubmit="return confirm('Deseja realmente excluir este equipamento?');">
@@ -205,7 +305,6 @@
     </table>
 
     <br>
-
 
 </div>
 

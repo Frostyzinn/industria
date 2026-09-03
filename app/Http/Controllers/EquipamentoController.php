@@ -12,13 +12,45 @@ class EquipamentoController extends Controller
     /**
      * Lista os equipamentos.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $equipamentos = Equipamento::all();
+        // Consulta base
+        $equipamentos = Equipamento::where('id', '>', 0);
 
-        return view('equipamentos.index', compact('equipamentos'));
+        // Filtro por nome
+        if ($request->filled('nome')) {
+            $equipamentos = $equipamentos->where('nome','like','%' . $request->nome . '%');
+        }
+
+        // Filtro por status
+        if ($request->filled('status')) {
+            $equipamentos = $equipamentos->where('status',$request->status);
+        }
+
+        // Filtro por setor
+        if ($request->filled('setor_id')) {
+            $equipamentos = $equipamentos->where('setor_id',$request->setor_id);
+        }
+
+        $setorSelecionado = $request->filled('setor_id')
+            ? Setor::find($request->setor_id): null;
+
+        // Filtro por patrimônio
+        if ($request->filled('patrimonio')) {
+            $equipamentos = $equipamentos->where('patrimonio','like','%' . $request->patrimonio . '%');
+        }
+
+        $equipamentos = $equipamentos->get();
+
+        // Busca todos os setores para o formulário
+        $setores = Setor::orderBy('nome')->get();
+
+        return view('equipamentos.index', compact(
+            'equipamentos',
+            'setores',
+            'setorSelecionado'
+        ));
     }
-
 
     /**
      * Formulário de cadastro.
