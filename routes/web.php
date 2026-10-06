@@ -7,8 +7,13 @@ use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\ChamadoController;
 use App\Http\Controllers\ManutencaoController;
 use App\Http\Controllers\OrdemProducaoController;
+<<<<<<< HEAD
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
+=======
+use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\TarefaController;
+>>>>>>> f76caa0007ee91f4b10a6a8e7e103a44c0f160c4
 
 use Illuminate\Support\Facades\Route;
 
@@ -30,11 +35,16 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/profile', [ProfileController::class, 'destroy'])
         ->name('profile.destroy');
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> f76caa0007ee91f4b10a6a8e7e103a44c0f160c4
     Route::patch(
         '/setores/{id}/status',
         [SetorController::class, 'ativarDesativar']
     )->name('setores.ativar-desativar');
+<<<<<<< HEAD
 
     Route::resource('setores', SetorController::class);
 
@@ -67,4 +77,22 @@ Route::get('/dashboard-estoque', [DashboardController::class, 'index'])
     ->name('estoque.dashboard');
 
 
+=======
+    
+    Route::resource('setores', SetorController::class);
+    Route::resource('equipamentos', EquipamentoController::class);
+    Route::resource('funcionarios', FuncionarioController::class);
+    Route::resource('chamados', ChamadoController::class);
+    Route::resource('manutencoes', ManutencaoController::class)
+        ->parameters(['manutencoes' => 'manutencao']);
+    Route::resource('ordens-producao', OrdemProducaoController::class);
+    
+    // Corrigido: alterado de apiResource para resource
+    Route::resource('usuarios', UsuarioController::class);
+    
+    Route::resource('tarefas', TarefaController::class);
+});
+
+
+>>>>>>> f76caa0007ee91f4b10a6a8e7e103a44c0f160c4
 require __DIR__.'/auth.php';

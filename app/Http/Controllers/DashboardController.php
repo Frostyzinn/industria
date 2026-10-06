@@ -8,32 +8,35 @@ class DashboardController extends Controller
 {
     public function index()
     {
+
         if (!session()->has('usuario_id')) {
+
             return redirect()
-                ->route('estoque.login')
-                ->with(
-                    'erro',
-                    'Faça login para acessar o sistema.'
-                );
+                ->route('estoque.login.login')
+                ->with('erro','Faça login para acessar o sistema.');
         }
+
 
         $usuario = Usuario::find(
             session('usuario_id')
         );
 
+
         if (!$usuario) {
+
             session()->flush();
 
             return redirect()
-                ->route('estoque.login')
+                ->route('estoque.login.login')
                 ->with(
                     'erro',
                     'Usuário não encontrado.'
                 );
         }
 
+
         return view(
-            'login.dashboard-estoque',
+            'dashboard-estoque.login',
             compact('usuario')
         );
     }
