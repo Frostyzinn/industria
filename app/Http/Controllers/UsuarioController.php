@@ -1,20 +1,15 @@
 <?php
-<<<<<<< HEAD
 
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Usuarios;
 
 class UsuarioController extends Controller
 {
     //
 }
-=======
  
-namespace App\Http\Controllers;
- 
-use App\Models\Usuarios;
-use Illuminate\Http\Request;
  
 class UsuarioController extends Controller
 {
@@ -76,4 +71,3 @@ class UsuarioController extends Controller
 }
  
  
->>>>>>> f76caa0007ee91f4b10a6a8e7e103a44c0f160c4
