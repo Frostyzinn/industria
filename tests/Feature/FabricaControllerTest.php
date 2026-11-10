@@ -6,8 +6,8 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Fabrica;
-use PHPUnit\Framework\Atributes\DataProvider;
-use PHPUnit\Framework\Atributes\Test;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
 

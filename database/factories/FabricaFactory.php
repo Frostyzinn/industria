@@ -10,11 +10,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class FabricaFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         return [
@@ -22,7 +17,7 @@ class FabricaFactory extends Factory
             "cnpj" => fake()->numerify('##############'),
             "email" => fake()->unique()->safeEmail(),
             "telefone" => fake()->numerify("869########"),
-            "ativo" => fake()
+            "ativo" => fake()->boolean(),
         ];
     }
 }
