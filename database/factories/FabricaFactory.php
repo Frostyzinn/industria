@@ -19,9 +19,9 @@ class FabricaFactory extends Factory
     {
         return [
             "razao_social" => fake()->company(),
-            "cnpj" => fake()->numerfy('##############'),
+            "cnpj" => fake()->numerify('##############'),
             "email" => fake()->unique()->safeEmail(),
-            "telefone" => fake()->numerfy("869########"),
+            "telefone" => fake()->numerify("869########"),
             "ativo" => fake()
         ];
     }

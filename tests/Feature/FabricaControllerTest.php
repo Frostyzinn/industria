@@ -27,6 +27,6 @@ class FabricaControllerTest extends TestCase
         $antes = Fabrica::count();
         Fabrica::factory()->count(3)->create();
         
-        $this->getJson('/api/fabrica')->assertOk()->assertJsonCount(3);
+        $this->getJson('/api/fabrica')->assertOk()->assertJsonCount($antes + 3);
    }
 }
